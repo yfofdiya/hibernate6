@@ -1,0 +1,24 @@
+Hibernate 6
+-----------
+Hibernate is an ORM solution for java and it raised as an open source persistence framework.
+
+persist()/save() => insert
+merge()/update() => update
+remove()/delete() => delete
+get()/list() => select
+
+save(), update(), and delete() are deprecated.
+
+1. Migrate to JPA3. Change imports to jakarta.persistence.* from javax.persistence.*.
+
+2. Generation fo the Primary Key with @GeneratedValue(strategy = GenerationType.SEQUENCE). 
+Before hibernate 6, default sequence for the entire persistence unit. It was called hibernate_sequence.
+But from hibernate 6, By default, it uses a different sequence for every entity class. Ex. <table_name>_SEQ
+
+3. save(), update(), and delete() methods are replaced with persist(), merge(), and remove() respectively.
+
+4. From hibernate 6, We can create a criteria query by another way and can apply some restrictions. Ex. DepartmentListDemo.class
+
+5. Defining a SELECT clause is now mandatory if we are joining tables. If we don't use SELECT then it will only fetch from the first table but not from the second table. Ex. OneToOneDemo.class
+We have two tables. Customer and Department so before hibernate 6, If we would not write SELECT clause still query would look like, SELECT c, d FROM Customer c JOIN Department d ON ... -> It will give data for Customer and Department tables.
+But from hibernate 6 onwards query would look like, SELECT c FROM Customer c JOIN Department d ON ... -> It will only give data for Customer table.
